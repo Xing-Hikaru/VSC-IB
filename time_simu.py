@@ -135,7 +135,7 @@ eq6 = Eq(iy - iLy - ux * C, 0)
 S = solve([eq1, eq2, eq3, eq4, eq5, eq6], [ux, uy, iLx, iLy, ix, iy])
 # print(S, type(S))
 temp1 = np.angle(complex(S[0][0], S[0][1]), deg=False)
-if temp1 <= np.pi - np.arctan(XL / RL) & temp1 >= 0:
+if temp1 <= np.pi - np.arctan(XL / RL) and temp1 >= 0:
     ep_ux = float(S[0][0])
     ep_uy = float(S[0][1])
     ep_ix = float(S[0][2])

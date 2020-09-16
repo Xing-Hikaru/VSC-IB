@@ -1,6 +1,7 @@
 import numpy as np
 from sympy import Symbol, Eq, solve
 from scipy.optimize import fsolve
+import matplotlib.pyplot as plt
 
 from models.CALfuncs import jac_f
 
@@ -135,14 +136,13 @@ for idx, Pidx in enumerate(Prange):
     S = solve([eq1, eq2, eq3, eq4, eq5, eq6], [ux, uy, iLx, iLy, ix, iy])
     # print(S, type(S))
     temp1 = np.angle(complex(S[0][0], S[0][1]), deg=False)
-    if temp1 <= np.pi - np.arctan(XL / RL) & temp1 >= 0:
+    if temp1 <= np.pi - np.arctan(XL / RL) and temp1 >= 0:
         ep_ux = float(S[0][0])
         ep_uy = float(S[0][1])
         ep_ix = float(S[0][2])
         ep_iy = float(S[0][3])
         ep_ilx = float(S[0][4])
         ep_ily = float(S[0][5])
-
     else:
         ep_ux = float(S[1][0])
         ep_uy = float(S[1][1])
@@ -167,3 +167,11 @@ for idx, Pidx in enumerate(Prange):
     eigv_imag[idx][:] = np.imag(EE)
     if any(np.real(EE) > 0):
         print('UNSTABLE equibrium point!')
+
+plt.ion()
+plt.scatter(eigv_real[1][:], eigv_imag[1][:])
+plt.scatter(eigv_real, eigv_imag)
+plt.legend(loc='best')
+plt.xlabel('t')
+plt.grid()
+plt.show()
